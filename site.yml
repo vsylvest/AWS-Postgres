@@ -1,0 +1,20 @@
+---
+## This playbook deploys the whole application stack in this site.  
+
+# Apply common configuration to all hosts
+- hosts: all
+  become: true
+  
+  roles:
+  - geerlingguy.repo-epel
+  - common
+
+# Configure and deploy database servers.
+- hosts: tag_ansible_group_dbservers
+  become: true
+
+  roles:
+  - geerlingguy.postgresql 
+
+  tags:
+  - db
